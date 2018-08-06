@@ -28,6 +28,7 @@ def get_df(_sql):
     _cnxn = get_odbc()
     _sql_df = pd.read_sql(_sql, _cnxn)
     _cnxn.close()
+    print('Rows returned: {}'.format(_sql_df.shape[0]))
     return _sql_df
 
 

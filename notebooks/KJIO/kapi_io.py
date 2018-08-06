@@ -37,7 +37,7 @@ def get_coldef(_col_name, _np_dtype, _col_props):
     return gpudb.GPUdbRecordColumn(_col_name, _k_type, _k_properties)
 
       
-def save_df(_df, _table_name, _schema, _kdbc=KDBC, _col_props={}):
+def save_df(_df, _table_name, _schema, _kdbc=KDBC, _col_props={}, _is_replicated=False):
     """Save a Dataframe to a Kinetica table."""
     
     # Should index be used to create a column?
@@ -59,11 +59,15 @@ def save_df(_df, _table_name, _schema, _kdbc=KDBC, _col_props={}):
     print('Dropping table: <{}>'.format(_table_name))
     _kdbc.clear_table(_table_name, options={ 'no_error_if_not_exists':'true' })
     
-    print('Creating table: <{}>'.format(_table_name))
+    _print_replicated = ''
+    if(_is_replicated):
+        _print_replicated = 'replicated '
+    
+    print('Creating {} table: <{}>'.format(_print_replicated, _table_name))
     for _idx, _coldef in enumerate(_result_type):
         print('Column {}: <{}> ({}) {}'.format(_idx, _coldef.name, _coldef.column_type, _coldef.column_properties))
     
-    _is_replicated = 'false'
+    #_is_replicated = 'false'
     _type_obj = gpudb.GPUdbRecordType(columns=_result_type, label=_table_name)
     _result_table = gpudb.GPUdbTable(db=_kdbc, _type=_type_obj, name=_table_name,
         options={'collection_name': _schema,
@@ -84,18 +88,23 @@ def save_df(_df, _table_name, _schema, _kdbc=KDBC, _col_props={}):
 def load_df(_input_table, _kdbc=KDBC):
     """Load a dataframe from a Kinetica table."""
     
+    _table = gpudb.GPUdbTable(_type=None, name=_input_table , db=_kdbc)
+    _type = _table.get_table_type()
+    _columns = [_col.name for _col in _type.columns]
+    
+    #print('Getting records from <{}>'.format(_input_table), end='', flush=True)
+    sys.stdout.write('Getting {} records from <{}>'.format(_table.count, _input_table))
+    
     BATCH_SIZE=10000
     _offset = 0
     _table_df = pd.DataFrame()
     
-    #print('Getting records from <{}>'.format(_input_table), end='', flush=True)
-    sys.stdout.write('Getting records from <{}>'.format(_input_table))
     while True:
         _response = _kdbc.get_records(table_name=_input_table,
                                     offset=_offset, limit=BATCH_SIZE)
         check_response(_response)
         
-        res_decoded = gpudb.GPUdbRecord.decode_binary_data(
+        _res_decoded = gpudb.GPUdbRecord.decode_binary_data(
             _response['type_schema'], 
             _response['records_binary'])
         
@@ -103,10 +112,13 @@ def load_df(_input_table, _kdbc=KDBC):
         #print('.', end='', flush=True)
         sys.stdout.write('.')
         
-        _offset += len(res_decoded)
-        _table_df = _table_df.append(res_decoded)
+        _offset += len(_res_decoded)
+        _table_df = _table_df.append(_res_decoded)
         if _response['has_more_records'] == False:
             break;
+            
+    # reorder dataframe columns
+    _table_df = _table_df[_columns]
             
     print('')
     print('Records Retrieved: {}'.format(_table_df.shape))
