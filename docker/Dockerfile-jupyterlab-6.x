@@ -14,7 +14,7 @@ RUN yum -y update && yum install -y \
     java-1.8.0-openjdk
 
 # this can be overriden but will default to latest version supported
-ARG GPUDB_PKG=gpudb-intel-license-6.2.0.12.20180720232954.ga-0.el6.x86_64.rpm
+ARG GPUDB_PKG=gpudb-intel-license-6.2.0.17.20180825221415.ga-0.el6.x86_64.rpm
 
 # install package and dependencies
 COPY $GPUDB_PKG .
@@ -62,6 +62,15 @@ RUN pip3 install \
     plotly \
     tensorflow
 
+# Install PDF export support (experimental)
+#RUN yum -y install pandoc
+#RUN yum -y install \
+#    texlive \
+#    texlive-latex \
+#    texlive-xetex \
+#    texlive-adjustbox \
+#    texlive-upquote
+
 RUN pip3 install http://download.pytorch.org/whl/cpu/torch-0.4.0-cp36-cp36m-linux_x86_64.whl
 RUN pip3 install torchvision
 
@@ -79,6 +88,7 @@ RUN yum clean all
 # install UDF API
 RUN unzip /opt/gpudb/downloads/gpudb-udf-api-python.zip
 RUN cd ./gpudb-udf-api-python && python3.6 setup.py install
+
 
 # install start scripts
 COPY config/lib_config_functions.sh .

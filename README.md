@@ -27,7 +27,7 @@ Example Notebooks are provided that demonstrate:
 
 [JUPYTERLAB]: <http://jupyterlab.readthedocs.io/en/stable>
 
-*important: The Kinteica Intel build does not give GPU accelerated performance and should be used for
+*Important: The Kinetica Intel build does not give GPU accelerated performance and should be used for
 development purposes only.*
 
 ## Mounted volumes
@@ -51,25 +51,24 @@ with Kinetica.
 | ex_kodbc_io.ipynb | Load/Save Pandas Dataframes with the Kinetica ODBC. |
 | ex_kudf_io.ipynb | Create/Execute a UDF to calculate sum-of-squares. |
 | ex_kudf_lr.ipynb | Create/Execute a UDF to calculate linear regression with distributed inferencing. |
-| ex_amazon_ingest.ipynb | Example download, data cleanse, and ingest of amazon product rating data. |
 | ex_widget_lorenz.ipynb | Example of real-time refresh of calculation with widgets. |
 
 To run the examples access **JupyterLab** at <http://localhost:8888> with password **kinetica**.
 
 From within JupyterLab you should see an [Examples](notebooks/Examples) directory.
 Open this directory and you will see the example notebooks each with their own documentation.
-To run a notebook select __Run->Run All Cells__.
+To run a notebook, select __Run->Run All Cells__.
 
 ## KJIO Utility Library
 
 A set of utility functions collectively called **Kinetica Jupyter I/O** are located in `notebooks/KJIO`
 to simplify the task of interacting with Kinetica from notebooks. The example notebooks demonstrate their
-functioality.
+functionality.
 
 | Script | Description |
 | :--- | :--- |
-| [kapi_io.py](notebooks/KJIO/kapi_io.py) | Load and save Dataframs to/from Kinetica tables. |
-| [kmodel_io.py](notebooks/KJIO/kmodel_io.py) | Load and save ML models with a Kientica table. |
+| [kapi_io.py](notebooks/KJIO/kapi_io.py) | Load and save Dataframes to/from Kinetica tables. |
+| [kmodel_io.py](notebooks/KJIO/kmodel_io.py) | Load and save ML models with a Kinetica table. |
 | [kodbc_io.py](notebooks/KJIO/kodbc_io.py) | Interact with tables using ODBC. |
 | [kudf_io.py](notebooks/KJIO/kudf_io.py) | Functions to simplify creation and execution of UDF's. |
 
@@ -101,7 +100,7 @@ centos                         7                   49f7960eb7e4        7 weeks a
 
 ## Building
 
-*note: You can skip this section if you prefer to pull the image from DockerHub.*
+*Note: You can skip this section if you prefer to pull the image from DockerHub.*
 
 To build the image you will need to download a Kinetica 6.x RPM from the [RPM download site][RPM_DOWNLOAD].
 Copy the RPM to the directory containing the build files.
@@ -141,7 +140,7 @@ Edit `docker/share/conf/gpudb.conf`, uncomment the line with `license_key` and a
 license_key = {your key}
 ```
 
-*note: If the key is invalid then the container startup will fail.*
+*Note: If the key is invalid then the container startup will fail.*
 
 ## Starting the Container
 

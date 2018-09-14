@@ -26,7 +26,19 @@ def get_df(_sql):
     """Get a pandas dataframe from SQL."""
     
     _cnxn = get_odbc()
-    _sql_df = pd.read_sql(_sql, _cnxn)
+    _sql_df = None
+    _exception = None
+    
+    # we try to skip the long stack trace and show the relevant information
+    try:
+        _sql_df = pd.read_sql(_sql, _cnxn)
+    except pd.io.sql.DatabaseError as dberror:
+        _exception = dberror
+        print(_exception.args[0])
+        
+    if(_exception):
+        raise Exception("ODBC SQL Error")
+    
     _cnxn.close()
     print('Rows returned: {}'.format(_sql_df.shape[0]))
     return _sql_df
@@ -49,6 +61,3 @@ def execute(_sql):
     _rowcount = _cnxn.execute(_sql).rowcount
     _cnxn.close()
     return _rowcount
-
-    
-    
