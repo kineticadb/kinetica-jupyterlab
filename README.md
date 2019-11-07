@@ -94,27 +94,30 @@ You can use the `docker image` command below to confirm your image was downloade
 ```
 [~/Local/workspace/kinetica-jupyterlab/docker (master)]$ docker image list
 REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
-kinetica/kinetica-jupyterlab   6.2                 e9702b6e31fb        28 minutes ago      7.35GB
+kinetica/kinetica-jupyterlab   7.0                 54641137324d        3 hours ago         9.64GB
 centos                         7                   49f7960eb7e4        7 weeks ago         200MB
+
 ```
 
 ## Building
 
 *Note: You can skip this section if you prefer to pull the image from DockerHub.*
 
-To build the image you will need to download a Kinetica 6.x RPM from the [RPM download site][RPM_DOWNLOAD].
+To build the image you will need to download a Kinetica 7.x RPM from the [RPM download site][RPM_DOWNLOAD].
 Copy the RPM to the directory containing the build files.
 
 ```sh
-[~/kinetica-jupyterlab/docker (master)]$ ls -l
-total 1308696
--rw-r--r--  1 chadjuliano  staff       1850 Jul  6 01:26 Dockerfile-jupyterlab-6.x
-drwxr-xr-x  7 chadjuliano  staff        224 Jul  6 01:23 config
--rw-r--r--  1 chadjuliano  staff        478 Jul  3 22:55 docker-compose.yml
--rw-r--r--@ 1 chadjuliano  staff  659632656 Jun 28 13:23 gpudb-intel-license-6.2.0.9.20180622232941.ga-0.el6.x86_64.rpm
+[~/Local/workspace/kinetica-jnb/docker]$ ls -l
+total 1967576
+-rw-r--r--  1 chadjuliano  staff   2.6K Nov  6 12:21 Dockerfile-jupyterlab-7.x
+drwxr-xr-x  7 chadjuliano  staff   224B Oct 14 09:30 config/
+-rw-r--r--@ 1 chadjuliano  staff   566B Nov  6 11:45 docker-compose.yml
+-rw-r--r--@ 1 chadjuliano  staff   952M Nov  4 05:26 gpudb-intel-license-7.0.9.0.20191102010945.ga-0.el7.x86_64.rpm
+drwxr-xr-x  7 chadjuliano  staff   224B Nov  6 12:46 share/
+
 ```
 
-Edit `Dockerfile-jupyterlab-6.x` and update the `GPUDB_PKG` parameter with the name of your RPM and build
+Edit `Dockerfile-jupyterlab-7.x` and update the `GPUDB_PKG` parameter with the name of your RPM and build
 the image with `docker-compose build`.
 
 ```
@@ -128,7 +131,7 @@ Step 2/34 : MAINTAINER Chad Juliano <cjuliano@kinetica.com>
 [...]
 ```
 
-[RPM_DOWNLOAD]: <http://repo.kinetica.com/yum/6.2.0/CentOS/7/x86_64/>
+[RPM_DOWNLOAD]: <http://repo.kinetica.com/yum/7.0/CentOS/7/x86_64/>
 
 ## License Configuration
 

@@ -47,7 +47,7 @@ def create_proc(_proc_name, _file_paths, _execution_mode='distributed', _kdbc=ka
         proc_name=_proc_name,
         execution_mode=_execution_mode,
         files=_file_bytes,
-        command='python',
+        command='python3',
         args=[ os.path.basename(_file_paths[0] ) ],
         options={})
     kapi_io.check_response(_response)
