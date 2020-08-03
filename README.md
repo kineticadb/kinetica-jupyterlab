@@ -94,7 +94,7 @@ You can use the `docker image` command below to confirm your image was downloade
 ```
 [~/Local/workspace/kinetica-jupyterlab/docker (master)]$ docker image list
 REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
-kinetica/kinetica-jupyterlab   7.0                 54641137324d        3 hours ago         9.64GB
+kinetica/kinetica-jupyterlab   7.1                 54641137324d        3 hours ago         9.64GB
 centos                         7                   49f7960eb7e4        7 weeks ago         200MB
 
 ```
@@ -131,7 +131,7 @@ Step 2/34 : MAINTAINER Chad Juliano <cjuliano@kinetica.com>
 [...]
 ```
 
-[RPM_DOWNLOAD]: <http://repo.kinetica.com/yum/7.0/CentOS/7/x86_64/>
+[RPM_DOWNLOAD]: <http://repo.kinetica.com/yum/7.1/CentOS/7/x86_64/>
 
 ## License Configuration
 
@@ -189,4 +189,3 @@ To access **JupyterLab** open <http://localhost:8888> and enter password **kinet
 * [Project Jupyter Home](http://jupyter.org)
 * [JupyterLab Documentation](http://jupyterlab.readthedocs.io/en/latest/)
 * [IPython Documentation](https://ipython.readthedocs.io/en/stable/index.html)
-

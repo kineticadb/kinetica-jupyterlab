@@ -2,7 +2,7 @@ version: '3'
 services:
 
   gpudb:
-    image: kinetica/kinetica-jupyterlab:7.0
+    image: kinetica/kinetica-jupyterlab:7.1
     ports:
      - "5601:5601"
      - "8080:8080"
